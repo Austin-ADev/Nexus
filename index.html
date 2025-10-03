@@ -94,10 +94,19 @@
     transition: 0.3s;
   }
 
-  .landing .btn:hover {
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 0 20px #8f00ff, 0 0 40px #00fff7;
-  }
+ .landing .btn:hover {
+  padding: 15px 40px;
+  margin: 10px;
+  font-size: 1.2em;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none; /* removes underline */
+  display: inline-block; /* ensures proper link styling */
+}
 </style>
 </head>
 <body>
@@ -112,10 +121,9 @@
 <!-- ===== Landing Section ===== -->
 <div class="landing">
   <h1>Nexus</h1>
-  <p>26 Dimensions. Infinite paths.</p>
-  <button class="btn" href="about.html">Learn More</button>
-  <a class="btn" href="download.html">Get Nexus</a>
-  <button class="btn">Playtest Soon</button>
+  <p>26 Dimensions. Infinite paths...Your Paths.</p>
+  <a href="download.html" class="btn">Get Nexus</a>
+  <a href="about.html" class="btn">Learn More</a>
 </div>
 
 <script>
