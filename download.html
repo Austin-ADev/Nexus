@@ -7,24 +7,24 @@
 <style>
   body {
     margin: 0;
-    height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden;
     background: linear-gradient(135deg, #0b0f2a, #3a1f6f, #a3c4f3);
   }
 
   nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 15px 0;
-  display: flex;
-  justify-content: center; /* Center links */
-  gap: 30px;
-  background: rgba(0,0,0,0.2);
-  z-index: 1000;
-}
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    background: rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
   nav a {
     color: #fff;
     text-decoration: none;
@@ -34,6 +34,7 @@
     transition: 0.3s;
     border: 1px solid transparent;
   }
+
   nav a:hover {
     background: rgba(255,255,255,0.1);
     border: 1px solid #fff;
@@ -48,6 +49,7 @@
     border-radius: 50%;
     animation: float 10s linear infinite;
   }
+
   @keyframes float {
     0% { transform: translateY(0) translateX(0); opacity:1; }
     50% { transform: translateY(-500px) translateX(50px); opacity:0.5; }
@@ -56,10 +58,10 @@
 
   .download-section {
     position: relative;
-    height: 100vh;
+    padding-top: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
   }
@@ -70,7 +72,7 @@
     margin-bottom: 20px;
   }
 
-  .download-section .btn {
+  .btn {
     padding: 15px 40px;
     margin: 10px;
     font-size: 1.2em;
@@ -80,9 +82,12 @@
     background: rgba(0,0,0,0.3);
     cursor: pointer;
     transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
   }
 
-  .download-section .btn:hover {
+  .btn:hover {
     background: rgba(255,255,255,0.1);
     box-shadow: 0 0 20px #8f00ff, 0 0 40px #00fff7;
   }
@@ -93,25 +98,27 @@
     text-shadow: 0 0 10px #fff;
   }
 
-  .btn {
-  padding: 15px 40px;
-  margin: 10px;
-  font-size: 1.2em;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 8px;
-  background: rgba(0,0,0,0.3);
-  cursor: pointer;
-  transition: 0.3s;
-  text-decoration: none; /* removes underline for links */
-  display: inline-block;  /* makes links behave like buttons */
-}
+  /* ===== Animated Dropdown styling ===== */
+  .dropdown {
+    width: 200px;
+  }
 
-/* Hover glow effect */
-.btn:hover {
-  background: rgba(255,255,255,0.1);
-  box-shadow: 0 0 20px #8f00ff, 0 0 40px #00fff7;
-}
+  .dropdown-content {
+    overflow: hidden;
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    transition: max-height 0.4s ease;
+  }
+
+  .dropdown-content .btn {
+    margin: 5px 0;
+  }
+
+  .dropdown.open .dropdown-content {
+    max-height: 500px; /* enough to show all buttons */
+  }
+
 </style>
 </head>
 <body>
@@ -126,13 +133,28 @@
 <!-- ===== Download Section ===== -->
 <div class="download-section">
   <h1>Download Nexus</h1>
-  <button class="btn">Download for PC</button>
+
+  <!-- Dropdown for PC downloads -->
+  <div class="dropdown" id="pcDropdown">
+    <button class="btn" id="pcDropdownBtn">Download for PC ▼</button>
+    <div class="dropdown-content" id="pcDropdownContent">
+      <a href="#" class="btn">Windows</a>
+      <a href="#" class="btn">Linux - Ubuntu</a>
+      <a href="#" class="btn">Linux - Fedora</a>
+      <a href="#" class="btn">Linux - Linux Mint</a>
+      <a href="#" class="btn">AnderOS</a>
+    </div>
+  </div>
+
+  <!-- App Store / Play Store buttons -->
   <a href="https://www.apple.com/app-store/" class="btn">Get Nexus On AppStore</a>
   <a href="https://play.google.com/store/games" class="btn">Get Nexus On PlayStore</a>
+
   <p>System requirements and installation instructions will be added here.</p>
 </div>
 
 <script>
+  // ===== Particles =====
   const numParticles = 50;
   for(let i=0; i<numParticles; i++){
     const particle = document.createElement('div');
@@ -143,6 +165,21 @@
     particle.style.width = particle.style.height = (2 + Math.random()*4) + 'px';
     document.body.appendChild(particle);
   }
+
+  // ===== Click-to-toggle animated dropdown =====
+  const dropdownBtn = document.getElementById('pcDropdownBtn');
+  const dropdown = document.getElementById('pcDropdown');
+
+  dropdownBtn.addEventListener('click', () => {
+    dropdown.classList.toggle('open');
+  });
+
+  // Optional: close dropdown if clicking outside
+  window.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+  });
 </script>
 
 </body>
