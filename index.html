@@ -95,6 +95,24 @@
     margin: 20px 0;
     text-shadow: 0 0 10px #fff;
   }
+
+  /* ===== Music Overlay ===== */
+  #music-overlay {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: #fff;
+    font-size: 2em;
+    cursor: pointer;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -104,6 +122,9 @@
   <source src="nexus-music.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
+
+<!-- ===== Music Overlay ===== -->
+<div id="music-overlay">Click Anywhere to Start Music</div>
 
 <!-- ===== Navigation ===== -->
 <nav>
@@ -133,14 +154,15 @@
     document.body.appendChild(particle);
   }
 
-  // ===== Background music handling =====
+  // ===== Music handling =====
   const music = document.getElementById('bg-music');
-  music.volume = 0.3; // 30% volume
+  music.volume = 0.7;// 70% volume
 
-  // Play music on first click to bypass Brave's autoplay block
-  document.addEventListener('click', () => {
-    music.play();
-  }, { once: true });
+  const overlay = document.getElementById('music-overlay');
+  overlay.addEventListener('click', () => {
+    music.play();           // start music
+    overlay.style.display = 'none'; // hide overlay
+  });
 </script>
 
 </body>
