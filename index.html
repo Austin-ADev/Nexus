@@ -61,7 +61,7 @@
     box-shadow: 0 0 20px #8f00ff, 0 0 40px #00fff7;
   }
 
-  /* ===== Glowing Portal Particles ===== */
+  /* ===== Particle Background ===== */
   .particle {
     position: absolute;
     width: 4px;
@@ -96,22 +96,25 @@
     text-shadow: 0 0 10px #fff;
   }
 
-  /* ===== Music Overlay ===== */
-  #music-overlay {
+  /* ===== Music Button ===== */
+  #music-btn {
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
     color: #fff;
-    font-size: 2em;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.3);
     cursor: pointer;
-    text-align: center;
+    box-shadow: 0 0 10px #8f00ff, 0 0 20px #00fff7;
+    transition: 0.3s, opacity 0.6s ease;
+    z-index: 2000;
+  }
+  #music-btn:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px #8f00ff, 0 0 40px #00fff7;
   }
 </style>
 </head>
@@ -123,8 +126,8 @@
   Your browser does not support the audio element.
 </audio>
 
-<!-- ===== Music Overlay ===== -->
-<div id="music-overlay">Click Anywhere to Start Music</div>
+<!-- ===== Music Start Button ===== -->
+<button id="music-btn">▶ Play Music</button>
 
 <!-- ===== Navigation ===== -->
 <nav>
@@ -154,14 +157,15 @@
     document.body.appendChild(particle);
   }
 
-  // ===== Music handling =====
+  // ===== Music button functionality =====
   const music = document.getElementById('bg-music');
-  music.volume = 0.7;// 70% volume
+  music.volume = 0.3;
 
-  const overlay = document.getElementById('music-overlay');
-  overlay.addEventListener('click', () => {
-    music.play();           // start music
-    overlay.style.display = 'none'; // hide overlay
+  const musicBtn = document.getElementById('music-btn');
+  musicBtn.addEventListener('click', () => {
+    music.play();
+    musicBtn.style.opacity = 0;        // fade out
+    setTimeout(() => musicBtn.style.display = 'none', 600); // remove after fade
   });
 </script>
 
