@@ -157,16 +157,21 @@
     document.body.appendChild(particle);
   }
 
-  // ===== Music button functionality =====
-  const music = document.getElementById('bg-music');
-  music.volume = 0.3;
+  <script>
+const music = document.getElementById('bg-music');
+music.volume = 0.3;
 
-  const musicBtn = document.getElementById('music-btn');
-  musicBtn.addEventListener('click', () => {
-    music.play();
-    musicBtn.style.opacity = 0;        // fade out
-    setTimeout(() => musicBtn.style.display = 'none', 600); // remove after fade
-  });
+const btn = document.getElementById('music-btn');
+btn.addEventListener('click', async () => {
+  try {
+    await music.play();   // force play
+    btn.style.display = 'none';
+  } catch (err) {
+    console.error('Music failed to play:', err);
+    alert('Could not play music. Check file path and browser settings.');
+  }
+});
+</script>
 </script>
 
 </body>
