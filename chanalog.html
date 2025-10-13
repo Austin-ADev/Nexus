@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus - Chanalog</title>
+<title>Nexium - Chanalog</title>
 <style>
   body {
     margin: 0;
-    height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     color: #fff;
-    overflow: hidden;
     background: linear-gradient(135deg, #0b0f2a, #3a1f6f, #a3c4f3);
+    overflow-x: hidden; /* Allow vertical scroll but prevent horizontal scroll */
   }
 
   nav {
@@ -21,11 +19,13 @@
     width: 100%;
     padding: 15px 0;
     display: flex;
-    justify-content: center; /* Center links */
+    justify-content: center;
     gap: 30px;
     background: rgba(0,0,0,0.2);
     z-index: 1000;
+    backdrop-filter: blur(6px);
   }
+
   nav a {
     color: #fff;
     text-decoration: none;
@@ -35,6 +35,7 @@
     transition: 0.3s;
     border: 1px solid transparent;
   }
+
   nav a:hover {
     background: rgba(255,255,255,0.1);
     border: 1px solid #fff;
@@ -42,13 +43,15 @@
   }
 
   .particle {
-    position: absolute;
+    position: fixed; /* fixed keeps them visible while scrolling */
     width: 4px;
     height: 4px;
     background: rgba(255,255,255,0.8);
     border-radius: 50%;
     animation: float 10s linear infinite;
+    z-index: 0;
   }
+
   @keyframes float {
     0% { transform: translateY(0) translateX(0); opacity:1; }
     50% { transform: translateY(-500px) translateX(50px); opacity:0.5; }
@@ -57,13 +60,14 @@
 
   .about-section {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 20px;
+    padding: 120px 20px 100px; /* Top padding for nav space */
+    z-index: 1;
   }
 
   .about-section h1, h3, h5 {
@@ -79,14 +83,22 @@
     line-height: 1.6em;
   }
 
-  /* ===== Styled links inside about-section ===== */
+  ul {
+    text-align: left;
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.6em;
+    font-size: 1.2em;
+  }
+
   .about-section a {
-    color: #048dc1;         /* Blue color */
-    text-decoration: none;   /* Remove underline */
+    color: #048dc1;
+    text-decoration: none;
     transition: 0.3s;
   }
+
   .about-section a:hover {
-    color: #00bfff;          /* Slightly brighter blue on hover */
+    color: #00bfff;
     text-shadow: 0 0 8px #048dc1;
   }
 </style>
@@ -103,33 +115,35 @@
 
 <!-- ===== About Section ===== -->
 <div class="about-section">
-  <h3>Nexus Plan</h3>
-        <h5>Overview</h5>
-        <p>Nexus is a next-generation sandbox-adventure game I’m designing from scratch. Players can explore infinite, smooth-terrain worlds, build creatively, fight mobs, and uncover hidden portals to travel across 26 unique dimensions, each with its own biomes, resources, and challenges.</p>
-        <h5>Core Features:</h5>
-        <ul>
-          <li>Infinite Procedural Worlds: Each dimension offers limitless exploration with hills, caves, floating islands, crystal caves, and celestial skies.</li>
-          <li>Dynamic Portals: Players discover or craft portals to advance through dimensions. Each portal may require combat, exploration, or crafting to activate.</li>
-          <li>Flexible Playstyles: Players can focus on building, exploration, or combat—or mix them as they choose. Weapons and tools are available but progression isn’t combat-focused.</li>
-          <li>Custom Characters & Items: Full customization of skins, usernames, and gear. Materials from different dimensions are used for building and crafting unique structures.</li>
-          <li>Branching Paths: Dimensions can be played in multiple sequences, offering different levels of challenge and strategy, culminating in the final Twilight Plains dimension.</li>
-          <li>Replayability & Freedom: Seeds, rules like “keep inventory,” difficulty settings, LAN multiplayer, and optional dimension count make each playthrough unique.</li>
-          <li>No Ads / Safe Content: Fully independent, kid-safe, creative-focused experience.</li>
-        </ul>
-        <h5>Why It’s Unique:</h5>
-        <p>Nexus blends the creativity and freedom of sandbox games like Minecraft with a next-gen infinite terrain system, smooth environments, multi-path progression, and a layered portal mechanic. Players can settle down and build or embark on epic dimension-hopping adventures, all within a single cohesive universe.</p>
+  <h3>Nexium Plan</h3>
+  <h5>Overview</h5>
+  <p>Nexium is a next-generation sandbox-adventure game I’m designing from scratch. Players can explore infinite, smooth-terrain worlds, build creatively, fight mobs, and uncover hidden portals to travel across 26 unique dimensions, each with its own biomes, resources, and challenges.</p>
+  
+  <h5>Core Features:</h5>
+  <ul>
+    <li>Infinite Procedural Worlds: Each dimension offers limitless exploration with hills, caves, floating islands, crystal caves, and celestial skies.</li>
+    <li>Dynamic Portals: Players discover or craft portals to advance through dimensions. Each portal may require combat, exploration, or crafting to activate.</li>
+    <li>Flexible Playstyles: Players can focus on building, exploration, or combat—or mix them as they choose.</li>
+    <li>Custom Characters & Items: Full customization of skins, usernames, and gear. Materials from different dimensions are used for building and crafting unique structures.</li>
+    <li>Branching Paths: Dimensions can be played in multiple sequences, offering different levels of challenge and strategy, culminating in the final Twilight Plains dimension.</li>
+    <li>Replayability & Freedom: Seeds, rules like “keep inventory,” difficulty settings, LAN multiplayer, and optional dimension count make each playthrough unique.</li>
+    <li>No Ads / Safe Content: Fully independent, kid-safe, creative-focused experience.</li>
+  </ul>
+
+  <h5>Why It’s Unique:</h5>
+  <p>Nexium blends the creativity and freedom of sandbox games like Minecraft with a next-gen infinite terrain system, smooth environments, multi-path progression, and a layered portal mechanic. Players can settle down and build or embark on epic dimension-hopping adventures, all within a single cohesive universe.</p>
 </div>
 
 <script>
   // ===== Particle generation =====
   const numParticles = 50;
-  for(let i=0; i<numParticles; i++){
+  for (let i = 0; i < numParticles; i++) {
     const particle = document.createElement('div');
     particle.classList.add('particle');
-    particle.style.left = Math.random()*100 + 'vw';
-    particle.style.top = Math.random()*100 + 'vh';
-    particle.style.animationDuration = (5 + Math.random()*10) + 's';
-    particle.style.width = particle.style.height = (2 + Math.random()*4) + 'px';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.top = Math.random() * 100 + 'vh';
+    particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+    particle.style.width = particle.style.height = (2 + Math.random() * 4) + 'px';
     document.body.appendChild(particle);
   }
 </script>
